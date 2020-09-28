@@ -24,9 +24,9 @@ function tackOn(todoItem) {
 
     box.addEventListener("change", () => {
         todoItem.complete = box.checked;
-        box.setAttribute("id", "complete")
+        box.setAttribute("class", "complete")
         console.log(todoItem);
-        item.setAttribute("id", "completed" )
+        item.setAttribute("class", "completed" )
     });
     
     item.textContent = todoItem.todo;
@@ -61,17 +61,15 @@ function removeItems(){
         }
 
     let byeBye = document.getElementById('list');
-    let Bye = document.getElementById('complete')
+    let Bye = document.getElementsByClassName('complete');
     byeBye.removeChild(Bye);
-    let goodbye = document.getElementById('completed')
+    let goodbye = document.getElementsByClassName('completed');
     byeBye.removeChild(goodbye);
     }
     console.log(initalTodos);
 }
 
 function hideShow(){
-
-    for (i = 0; i < initalTodos.length; i++) {
 
     let listBox = document.getElementById('complete');
 
@@ -92,5 +90,4 @@ function hideShow(){
      }else{
         listTask.style.display = "block";
         }
-    }
 }    
