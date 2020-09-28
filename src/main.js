@@ -26,9 +26,9 @@ function tackOn(todoItem) {
         todoItem.complete = box.checked;
         box.setAttribute("class", "complete")
         console.log(todoItem);
-        item.setAttribute("class", "completed" )
+        item.setAttribute("class", "completed")
     });
-    
+
     item.textContent = todoItem.todo;
 
     document.getElementById('list').appendChild(box);
@@ -45,7 +45,7 @@ function addTo() {
 
     console.log(createItem);
 
-    let myObj = {id: initalTodos.length + 1, todo: createItem, complete: false, category: newCategory}
+    let myObj = { id: initalTodos.length + 1, todo: createItem, complete: false, category: newCategory }
 
     console.log(myObj);
 
@@ -54,40 +54,41 @@ function addTo() {
     tackOn(myObj);
 }
 
-function removeItems(){
+function removeItems() {
+    let checkboxes = document.getElementsByTagName('input');
+
     for (i = 0; i < initalTodos.length; i++) {
-        if (initalTodos[i].complete){
+        if (initalTodos[i].complete) {
             initalTodos.splice(i, 1);
         }
-
-    let byeBye = document.getElementById('list');
-    let Bye = document.getElementsByClassName('complete');
-    byeBye.removeChild(Bye);
-    let goodbye = document.getElementsByClassName('completed');
-    byeBye.removeChild(goodbye);
     }
-    console.log(initalTodos);
+    for (y = checkboxes.length - 1; y >= 0; y--) {
+        if (checkboxes[y].checked) {
+            document.getElementById('list').removeChild(checkboxes[y].nextSibling);
+            document.getElementById('list').removeChild(checkboxes[y]);
+        }
+    }
 }
 
-function hideShow(){
+function hideShow() {
 
-    let listBox = document.getElementById('complete');
+    let checkboxes = document.getElementsByTagName('input');
 
-    if (listBox.style.display === "block"){
-        
-        listBox.style.display = "none";
-        
-    }else{
-    listBox.style.display = "block";
-    }
+    for (y = checkboxes.length - 1; y >= 0; y--) {
+        if (checkboxes[y].checked) {
+            checkboxes[y].nextSibling;
+            checkboxes[y];
 
-    let listTask = document.getElementById('completed');
-    
-    if (listTask.style.display === "block"){
+            if (checkboxes[y].style.display === "none") {
 
-            listTask.style.display = "none";
-            
-     }else{
-        listTask.style.display = "block";
+                checkboxes[y].style.display = "block"; 
+                checkboxes[y].nextSibling.style.display = "block";
+
+            } else {
+                checkboxes[y].style.display = "none";
+                checkboxes[y].nextSibling.style.display = "none";
+            }
         }
-}    
+
+    }
+}
