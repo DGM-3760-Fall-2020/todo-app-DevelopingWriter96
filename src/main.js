@@ -3,63 +3,94 @@
 //For now we are just going to mock it.
 let initalTodos = [
     { id: 1, todo: "Buy milk.", complete: false, category: "Grocery" },
-    { id: 1, todo: "Clean the cat box.", complete: false, category: "House" },
-    { id: 1, todo: "Chips and salsa.", complete: false, category: "Grocery" },
-    { id: 1, todo: "Finish Homework for DGM 3760", complete: false, category: "School" }
+    { id: 2, todo: "Clean the cat box.", complete: false, category: "House" },
+    { id: 3, todo: "Chips and salsa.", complete: false, category: "Grocery" },
+    { id: 4, todo: "Finish Homework for DGM 3760", complete: false, category: "School" }
 ]
 
 console.log(initalTodos);
 
-function todoList() {
-
-    for (i = 0; i < initalTodos.length; i++) {
-
-        let par = document.createElement("p");
-
-        let check = document.createElement("input");
-
-        check.setAttribute("type", "checkbox");
-
-        par.textContent = initalTodos[i].todo;
-
-        document.getElementById('list').appendChild(check);
-
-        document.getElementById('list').appendChild(par);
-    }
+for (i = 0; i < initalTodos.length; i++) {
+    tackOn(initalTodos[i]);
 }
 
-todoList();
+function tackOn(todoItem) {
+
+    let item = document.createElement("p");
+
+    let box = document.createElement("input");
+
+    box.setAttribute("type", "checkbox");
+
+    box.addEventListener("change", () => {
+        todoItem.complete = box.checked;
+        box.setAttribute("id", "complete")
+        console.log(todoItem);
+        item.setAttribute("id", "completed" )
+    });
+    
+    item.textContent = todoItem.todo;
+
+    document.getElementById('list').appendChild(box);
+
+    document.getElementById('list').appendChild(item);
+}
 
 function addTo() {
     console.log("Testing");
 
     let createItem = document.getElementById('add').value;
 
+    let newCategory = document.getElementById('category').value;
+
     console.log(createItem);
 
-    let myObj = {id: 1, todo: createItem, complete: false, category: "Other"}
+    let myObj = {id: initalTodos.length + 1, todo: createItem, complete: false, category: newCategory}
 
     console.log(myObj);
 
     initalTodos.push(myObj);
 
-    function tackOn() {
-        let newArray = initalTodos.length;
+    tackOn(myObj);
+}
 
-        console.log(newArray);
+function removeItems(){
+    for (i = 0; i < initalTodos.length; i++) {
+        if (initalTodos[i].complete){
+            initalTodos.splice(i, 1);
+        }
 
-        let box = document.createElement("input");
+    let byeBye = document.getElementById('list');
+    let Bye = document.getElementById('complete')
+    byeBye.removeChild(Bye);
+    let goodbye = document.getElementById('completed')
+    byeBye.removeChild(goodbye);
+    }
+    console.log(initalTodos);
+}
 
-        box.setAttribute("type", "checkbox");
+function hideShow(){
 
-        let item = document.createElement("p");
+    for (i = 0; i < initalTodos.length; i++) {
+
+    let listBox = document.getElementById('complete');
+
+    if (listBox.style.display === "block"){
         
-        item.textContent = initalTodos[(newArray-1)].todo;
-
-        document.getElementById('list').appendChild(box);
-
-        document.getElementById('list').appendChild(item);
+        listBox.style.display = "none";
+        
+    }else{
+    listBox.style.display = "block";
     }
 
-    tackOn();
-}
+    let listTask = document.getElementById('completed');
+    
+    if (listTask.style.display === "block"){
+
+            listTask.style.display = "none";
+            
+     }else{
+        listTask.style.display = "block";
+        }
+    }
+}    
